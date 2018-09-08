@@ -1,0 +1,20 @@
+#! /bin/bash
+
+MIN=30
+MAX=90
+EVERY_TIME=60
+
+BATTERY_PATH='/sys/class/power_supply/BAT?/'
+MAX_CAPACITY=`cat $BATTERY_PATH"charge_full_design"`
+
+while true; do
+    BATTERY_STATUS=`cat $BATTERY_PATH"status"`
+    CURRENT_CHARGE=`cat $BATTERY_PATH"charge_now"`
+    PERCENTAGE=$((CURRENT_CHARGE*100/MAX_CAPACITY))
+    if [[ $PERCENTAGE -le $MIN && $BATTERY_STATUS == "Discharging" ]]; then #Conectar cargador
+        notify-send 'Conecta el cargador' 'Bateria al '$PERCENTAGE'%' --icon=battery-low
+    elif [[ $PERCENTAGE -gt $MAX && $BATTERY_STATUS == "Charging" ]]; then #Desconectar cargador
+        notify-send 'Desconecta el cargador' 'Bateria al '$PERCENTAGE'%' --icon=dialog-information
+    fi
+    sleep $EVERY_TIME
+done
