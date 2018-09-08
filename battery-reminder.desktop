@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Battery Reminder
+GenericName=Recordar cuando usar el cargador                                
+Comment=Battery Reminder te ayuda a recordar cuando conectar o desconectar el cargador de la bateria
+Exec=/usr/bin/battery_reminder
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
